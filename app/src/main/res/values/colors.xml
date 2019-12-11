@@ -9,4 +9,5 @@
     <color name="Green">#407033</color>
     <color name="darkGreen">#205013</color>
     <color name="white">#FFFFFF</color>
+    <color name="link">#5555FF</color>
 </resources>

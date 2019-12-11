@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
-    <androidx.recyclerview.widget.RecyclerView
+    tools:context=".MyRecipesActivity">
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/wall_recycler"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/recipe_main_content"
+        >
 
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

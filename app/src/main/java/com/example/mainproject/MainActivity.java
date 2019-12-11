@@ -24,14 +24,14 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rooView = inflater.inflate(R.layout.activity_main, null, false);
-        mRecyclerView = rooView.findViewById(R.id.wall_recycler);
+        View view = inflater.inflate(R.layout.activity_main, null, false);
+        mRecyclerView = view.findViewById(R.id.wall_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.scrollToPosition(0);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(myRecyclerAdapter);
         //myRecyclerAdapter.notifyDataSetChanged();
-        contentFrame.addView(rooView);
+        contentFrame.addView(view);
     }
 
     @Override

@@ -36,9 +36,21 @@ public class BaseActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_profile:
-                        Toast.makeText(getApplicationContext(), "You picked Profile", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "You picked Profile", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
                         startActivity(intent);
+                        break;
+                    case R.id.menu_settings:
+                        intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(intent);
+                        break;
+                    case R.id.menu_recipes:
+                        intent = new Intent(getApplicationContext(), MyRecipesActivity.class);
+                        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(intent);
+
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);

@@ -20,6 +20,15 @@
     <string name="location_hint">Location</string>
     <string name="update_btn">Update</string>
     <string name="post_text_hint">Add Caption</string>
+    <string name="cancel_post">Cancel</string>
+    <string name="login">Login</string>
+    <string name="reset_pass">Forgot Password?</string>
+    <string name="register_user">Register</string>
+    <string name="mash_heading">Mash</string>
+    <string name="add_mash">Add Ingredient</string>
+    <string name="hop_heading">Hops</string>
+    <string name="add_hop">Add Ingredient</string>
+    <string name="recipe_name">Recipe Name</string>
 
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 </resources>
