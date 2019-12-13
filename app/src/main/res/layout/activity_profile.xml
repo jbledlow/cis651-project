@@ -4,26 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".ProfileActivity"
+    android:layout_margin="10dp">
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/profile_pic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/default_profile_pic"
+        android:scaleType="centerCrop"
+        />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profile_user_name"
         android:hint="@string/username_hint"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/update_profile_pic"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/update_profile_pic"
+        android:text="@string/update_pic"
+        android:textSize="10sp"
+        app:layout_constraintTop_toBottomOf="@id/profile_pic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profile_birthday"
-        android:hint="@string/bday_hint"
+        android:id="@+id/profile_email"
+        android:hint="@string/prompt_email"
         app:layout_constraintTop_toBottomOf="@id/profile_user_name"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profile_location"
         android:hint="@string/location_hint"
-        app:layout_constraintTop_toBottomOf="@id/profile_birthday"/>
+        app:layout_constraintTop_toBottomOf="@id/profile_email"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

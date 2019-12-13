@@ -16,15 +16,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.mainproject.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BaseActivity extends AppCompatActivity {
     Toolbar toolbar;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     protected FrameLayout contentFrame;
+    protected FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_base_layout);
         contentFrame = findViewById(R.id.content_frame);
         toolbar = findViewById(R.id.toolbar);
@@ -60,7 +63,6 @@ public class BaseActivity extends AppCompatActivity {
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.ndopen,R.string.ndclose);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
     }
 
     @Override

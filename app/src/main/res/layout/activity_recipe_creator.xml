@@ -8,13 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/general_recipe_info">
+        android:id="@+id/general_recipe_info"
+        app:layout_constraintTop_toTopOf="parent">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recipe_name"
             android:hint="@string/recipe_name"
-            app:layout_constraintTop_toTopOf=""/>
+            app:layout_constraintTop_toTopOf="parent"/>
     </LinearLayout>
 
     <TextView
