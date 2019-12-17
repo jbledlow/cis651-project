@@ -100,5 +100,6 @@ public class LoginActivity extends BaseActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        finish();
     }
 }

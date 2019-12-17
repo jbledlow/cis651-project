@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_margin="5dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:id="@+id/recipe_item"
             android:layout_marginVertical="2dp"
-            android:background="@color/colorBackground"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:textSize="24sp"
+            android:textColor="@color/darkYellow">
         </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recipe_item_type"
+            android:padding="5dp"
+            />
     </LinearLayout>
 
 

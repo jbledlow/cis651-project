@@ -1,8 +1,6 @@
 package com.example.mainproject;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,12 +12,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private WallData wd = new WallData();
-    private final MyRecyclerAdapter myRecyclerAdapter = new MyRecyclerAdapter(wd.getWallList());
+    private final MyRecyclerAdapter myRecyclerAdapter = new MyRecyclerAdapter(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +29,8 @@ public class MainActivity extends BaseActivity {
         mRecyclerView.setAdapter(myRecyclerAdapter);
         //myRecyclerAdapter.notifyDataSetChanged();
         contentFrame.addView(view);
+        //THis is not working
+
     }
 
     @Override
@@ -45,7 +44,7 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_post:
-                Intent intent = new Intent(getApplicationContext(),AppPostActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AddPostActivity.class);
                 startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
