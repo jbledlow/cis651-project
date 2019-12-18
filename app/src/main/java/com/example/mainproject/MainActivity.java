@@ -29,7 +29,6 @@ public class MainActivity extends BaseActivity {
         mRecyclerView.setAdapter(myRecyclerAdapter);
         //myRecyclerAdapter.notifyDataSetChanged();
         contentFrame.addView(view);
-        //THis is not working
 
     }
 

@@ -15,6 +15,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +34,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -49,11 +54,14 @@ public class ProfileActivity extends BaseActivity {
     private EditText ev;
     private EditText lv;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private DatabaseReference userProfileRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        mRootReference = FirebaseDatabase.getInstance().getReference();
+        userProfileRef = mRootReference.child("user_profiles/"+user.getUid());
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.activity_profile, null, false);
         contentFrame.addView(view);
@@ -78,7 +86,9 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 lv.setText(dataSnapshot.child("location").getValue().toString());
-                new WorkerDownloadImage(ProfileActivity.this,ppv).execute(user.getPhotoUrl().toString());
+                try {
+                    new WorkerDownloadImage(ProfileActivity.this,ppv).execute(user.getPhotoUrl().toString());
+                } catch (NullPointerException e){}
             }
 
             @Override
@@ -135,6 +145,9 @@ public class ProfileActivity extends BaseActivity {
                                 Toast.makeText(ProfileActivity.this,e.toString(),Toast.LENGTH_SHORT);
                             }
                         });
+                userProfileRef.child("email").setValue(ev.getText().toString());
+                userProfileRef.child("location").setValue(lv.getText().toString());
+                userProfileRef.child("username").setValue(uv.getText().toString());
             }
         });
 
@@ -218,7 +231,7 @@ public class ProfileActivity extends BaseActivity {
                                         if (task.isSuccessful()) {
                                             new WorkerDownloadImage(ProfileActivity.this,ppv).execute(user.getPhotoUrl().toString());
                                             new WorkerDownloadImage(ProfileActivity.this,headerPic).execute(user.getPhotoUrl().toString());
-
+                                            userProfileRef.child("pp_link").setValue(user.getPhotoUrl().toString());
                                         }
                                     }
                                 });
@@ -241,5 +254,27 @@ public class ProfileActivity extends BaseActivity {
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profile_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sign_out:
+                mAuth.signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                finishAffinity();
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return false;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.mainproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Post post = new Post();
+                post.id = dataSnapshot.child("id").getValue().toString();
                 post.un = dataSnapshot.child("un").getValue().toString();
                 post.like_list = dataSnapshot.child("like_list").getValue().toString();
                 post.link = dataSnapshot.child("link").getValue().toString();
@@ -102,8 +104,16 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.username.setText(postList.get(position).un);
+        holder.username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ViewProfileActivity.class);
+                intent.putExtra("userID",postList.get(position).id);
+                context.startActivity(intent);
+            }
+        });
         holder.post_content.setText(postList.get(position).text);
         new BaseActivity.WorkerDownloadImage(context,holder.profile_pic_thumb).execute(postList.get(position).pp_link);
         new BaseActivity.WorkerDownloadImage(context,holder.post_image).execute(postList.get(position).link);

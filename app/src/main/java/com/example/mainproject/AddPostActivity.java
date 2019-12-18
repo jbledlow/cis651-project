@@ -87,6 +87,7 @@ public class AddPostActivity extends BaseActivity {
         post.time = ServerValue.TIMESTAMP;
         DatabaseReference newPostRef = postRef.push();
         newPostRef.setValue(post);
+        finish();
     }
 
     @Override

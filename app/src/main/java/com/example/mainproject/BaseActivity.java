@@ -77,8 +77,13 @@ public class BaseActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav);
         headerPic = navigationView.getHeaderView(0).findViewById(R.id.header_profile_pic);
         if (user!=null) {
-            currentPicUri=user.getPhotoUrl().toString();
-            new WorkerDownloadImage(this,headerPic).execute(currentPicUri);
+            try {
+                currentPicUri=user.getPhotoUrl().toString();
+                new WorkerDownloadImage(this,headerPic).execute(currentPicUri);
+            } catch (NullPointerException e) {
+
+            }
+
             //Toast.makeText(this, "Set Photo", Toast.LENGTH_SHORT).show();
         } else {
             headerPic.setImageResource(R.drawable.default_profile_pic);
@@ -88,15 +93,14 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.menu_profile:
-                        //Toast.makeText(getApplicationContext(), "You picked Profile", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                        //intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    case R.id.menu_home:
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.menu_settings:
-                        intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    case R.id.menu_profile:
+                        //Toast.makeText(getApplicationContext(), "You picked Profile", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        //intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
                         startActivity(intent);
                         break;
                     case R.id.menu_recipes:
@@ -139,6 +143,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected boolean hasProfilePicChanged() {
-        return user.getPhotoUrl().toString()!=currentPicUri;
+        if (user.getPhotoUrl()==null) {
+            return false;
+        } else {
+            return user.getPhotoUrl().toString()!=currentPicUri;
+        }
     }
 }
