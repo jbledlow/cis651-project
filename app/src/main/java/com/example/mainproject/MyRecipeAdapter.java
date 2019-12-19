@@ -23,12 +23,15 @@ import java.util.List;
 public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHolder> {
     private List<Recipe> recipes=new ArrayList<>();
     Context context;
+    RecipeListFragment mFragment;
+    RecipeListFragment.onListItemSelectedListener mClickListener;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     DatabaseReference mRootReference = FirebaseDatabase.getInstance().getReference();
     DatabaseReference recipesRef = mRootReference.child("recipes/"+user.getUid());
-    public MyRecipeAdapter(Context _context) {
+    public MyRecipeAdapter(Context _context, RecipeListFragment.onListItemSelectedListener clickListener) {
         context = _context;
+        mClickListener = clickListener;
         recipesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -51,7 +54,7 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
         });
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView textView;
         public TextView recipeType;
 
@@ -60,19 +63,36 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
             textView = itemView.findViewById(R.id.recipe_item);
             recipeType = itemView.findViewById(R.id.recipe_item_type);
         }
+
+        @Override
+        public void onClick(View v) {
+
+        }
     }
     @NonNull
     @Override
     public MyRecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item, parent, false);
+
         ViewHolder viewHolder = new ViewHolder(v);
+
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.textView.setText(recipes.get(position).name.toString());
         holder.recipeType.setText(recipes.get(position).type.toString());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickListener.onListItemSelected(recipes.get(position).name.toString(),
+                        recipes.get(position).volume.toString(),
+                        recipes.get(position).type.toString(),
+                        recipes.get(position).mash.toString(),
+                        recipes.get(position).hops.toString());
+            }
+        });
     }
 
     @Override

@@ -10,8 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-public class MyRecipesActivity extends BaseActivity {
+public class MyRecipesActivity extends BaseActivity implements RecipeListFragment.onListItemSelectedListener {
     private boolean twoPane;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +46,29 @@ public class MyRecipesActivity extends BaseActivity {
                 startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onListItemSelected(String name, String volume, String type, String mash, String hops) {
+        Bundle args = new Bundle();
+        args.putString("name",name);
+        args.putString("volume", volume);
+        args.putString("type", type);
+        args.putString("mash", mash);
+        args.putString("hops", hops);
+        RecipeDetailFragment detailFragment = new RecipeDetailFragment();
+        detailFragment.setArguments(args);
+        if (twoPane) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_detail_content, detailFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            //Toast.makeText(this,name.toString(), Toast.LENGTH_SHORT).show();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_main_content, detailFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }

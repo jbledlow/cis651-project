@@ -127,7 +127,7 @@ public class RecipeCreatorActivity extends BaseActivity
             case R.id.save_recipe:
                 Recipe recipe = new Recipe();
                 recipe.name= nameView.getText().toString();
-                recipe.volume = nameView.getText().toString();
+                recipe.volume = volumeView.getText().toString();
                 recipe.type = typeView.getText().toString();
                 recipe.hops = hopList.toString();
                 recipe.mash = maltList.toString();
