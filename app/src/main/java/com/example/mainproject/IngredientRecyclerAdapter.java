@@ -44,7 +44,7 @@ public class IngredientRecyclerAdapter extends RecyclerView.Adapter<IngredientRe
                 ingredient.name = dataSnapshot.child("name").getValue().toString();
                 ingredient.type = Integer.parseInt(dataSnapshot.child("type").getValue().toString());
                 ingredient.data = dataSnapshot.child("data").getValue().toString();
-                SimpleDateFormat localDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                SimpleDateFormat localDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 String time=dataSnapshot.child("date").getValue().toString();
                 Long t=Long.parseLong(time);
                 ingredient.date = localDateFormat.format(new Date(t));

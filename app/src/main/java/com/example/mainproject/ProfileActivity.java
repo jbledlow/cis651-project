@@ -60,6 +60,9 @@ public class ProfileActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        if (user==null) {
+            user = mAuth.getCurrentUser();
+        }
         mRootReference = FirebaseDatabase.getInstance().getReference();
         userProfileRef = mRootReference.child("user_profiles/"+user.getUid());
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
