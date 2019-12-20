@@ -13,10 +13,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends BaseActivity {
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.Map;
+
+public class MainActivity extends BaseActivity implements CommentDialogFragment.AddCommentDialogListener {
     private RecyclerView mRecyclerView;
     private WallData wd = new WallData();
     private final MyRecyclerAdapter myRecyclerAdapter = new MyRecyclerAdapter(this);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,5 +53,20 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDialogPositiveClick(String key, String un, String comment) {
+        DatabaseReference commentRef = mRootReference.child("posts/"+key+"/comments");
+        String newKey = commentRef.push().getKey();
+        Comment newComment = new Comment();
+        newComment.user = un;
+        newComment.text = comment;
+        commentRef.child(newKey).setValue(newComment);
+    }
+
+    @Override
+    public void onDialogNegativeClick(String key, String un, String comment) {
+
     }
 }

@@ -13,22 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ViewProfileActivity"></activity>
-        <activity android:name=".AddIngredientActivity" />
-        <activity android:name=".IngredientsActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".RecipeCreatorActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".ViewProfileActivity" android:label="View Profile"></activity>
+        <activity android:name=".AddIngredientActivity" android:label="Add Ingredient"/>
+        <activity android:name=".IngredientsActivity" android:label="My Ingredients"/>
+        <activity android:name=".RegisterActivity" android:label="Register New User"/>
+        <activity android:name=".RecipeCreatorActivity" android:label="Recipe Creator"/>
+        <activity android:name=".LoginActivity" android:label="Hop Journal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyRecipesActivity" />
+        <activity android:name=".MyRecipesActivity" android:label="My Recipes"/>
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".AddPostActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".AddPostActivity" android:label="Create New Post"/>
+        <activity android:name=".ProfileActivity" android:label="My Profile"/>
         <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity" />
     </application>

@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -134,6 +135,9 @@ public class RecipeCreatorActivity extends BaseActivity
                 DatabaseReference newRecipe = recipesRef.push();
                 newRecipe.setValue(recipe);
             case R.id.cancel_recipe:
+                Intent intent = new Intent(this,MyRecipesActivity.class);
+                startActivity(intent);
+                finish();
                 return false;
             default:
                 return false;

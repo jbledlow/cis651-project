@@ -65,15 +65,30 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/card_comment_link"
-                android:text="Show Comments"
+                android:text="Add Comment"
                 android:gravity="center_vertical"
                 android:paddingLeft="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/num_likes"
+                android:text="0 Likes"
+                />
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:id="@+id/like_button"
                 android:src="@drawable/thumbs_up"
                 android:padding="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/comment_view"
+            android:padding="5dp"
+            android:orientation="vertical"
+            >
+
         </LinearLayout>
     </LinearLayout>
 

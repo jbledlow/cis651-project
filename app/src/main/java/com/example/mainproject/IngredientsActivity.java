@@ -36,17 +36,16 @@ public class IngredientsActivity extends BaseActivity {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.activity_ingredients,contentFrame,false);
         contentFrame.addView(view);
+
         if (savedInstanceState==null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.ingredient_main_content, new IngredientListFragment()).commit();
         }
         twoPane = false;
-        if (findViewById(R.id.recipe_detail_content)!=null) {
-            twoPane = true;
-        }
+
 
     }
-
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -65,4 +64,6 @@ public class IngredientsActivity extends BaseActivity {
                 return true;
         }
     }
+
+     */
 }

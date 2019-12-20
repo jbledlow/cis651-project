@@ -86,7 +86,15 @@ public class IngredientRecyclerAdapter extends RecyclerView.Adapter<IngredientRe
     @Override
     public void onBindViewHolder(@NonNull IngredientRecyclerAdapter.ViewHolder holder, int position) {
         holder.ingredientName.setText(ingredientList.get(position).name);
-        holder.ingredientType.setText(Integer.toString(ingredientList.get(position).type));
+        switch (ingredientList.get(position).type) {
+            case Ingredient.INGREDIENT_MALT:
+                holder.ingredientType.setText("Malt");
+                break;
+            case Ingredient.INGREDIENT_HOP:
+                holder.ingredientType.setText("Hop");
+
+        }
+
         holder.ingredientData.setText(ingredientList.get(position).data);
         holder.ingredientDate.setText(ingredientList.get(position).date);
         switch (ingredientList.get(position).type) {

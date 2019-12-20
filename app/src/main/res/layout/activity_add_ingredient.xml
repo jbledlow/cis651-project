@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddIngredientActivity">
+    tools:context=".AddIngredientActivity"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/new_ingredient_type"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,19 +17,13 @@
         android:hint="@string/ingredient_name"
         app:layout_constraintTop_toTopOf="parent"
         />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/new_ingredient_type"
-        android:hint="Ingredient Type"
-        app:layout_constraintTop_toBottomOf="@id/new_ingredient_name"
-        />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/new_ingredient_data"
         android:hint="Ingredient Data"
-        app:layout_constraintTop_toBottomOf="@id/new_ingredient_type"
+        app:layout_constraintTop_toBottomOf="@id/new_ingredient_name"
         />
     <Button
         android:layout_width="wrap_content"

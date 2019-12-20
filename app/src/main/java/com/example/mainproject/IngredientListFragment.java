@@ -1,5 +1,6 @@
 package com.example.mainproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ public class IngredientListFragment extends Fragment {
     private FloatingActionButton fab;
     private FloatingActionButton fab1;
     private FloatingActionButton fab2;
-    private FloatingActionButton fab3;
+    //private FloatingActionButton fab3;
     private boolean isFABOpen = false;
 
     @Nullable
@@ -38,7 +39,7 @@ public class IngredientListFragment extends Fragment {
         fab = view.findViewById(R.id.fab);
         fab1 = view.findViewById(R.id.fab1);
         fab2 = view.findViewById(R.id.fab2);
-        fab3 = view.findViewById(R.id.fab3);
+        //fab3 = view.findViewById(R.id.fab3);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,13 +50,35 @@ public class IngredientListFragment extends Fragment {
                 }
             }
         });
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("type", 1);
+                Intent intent = new Intent(getContext(),AddIngredientActivity.class);
+                intent.putExtras(args);
+                startActivity(intent);
+                closeFABMenu();
+            }
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("type", 2);
+                Intent intent = new Intent(getContext(),AddIngredientActivity.class);
+                intent.putExtras(args);
+                startActivity(intent);
+                closeFABMenu();
+            }
+        });
         return view;
     }
     private void showFABMenu() {
         isFABOpen = true;
         fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
         fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
-        fab3.animate().translationY(-getResources().getDimension(R.dimen.standard_155));
+        //fab3.animate().translationY(-getResources().getDimension(R.dimen.standard_155));
 
     }
 
@@ -63,6 +86,6 @@ public class IngredientListFragment extends Fragment {
         isFABOpen = false;
         fab1.animate().translationY(0);
         fab2.animate().translationY(0);
-        fab3.animate().translationY(0);
+        //fab3.animate().translationY(0);
     }
 }
