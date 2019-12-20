@@ -61,12 +61,15 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                 Long t=Long.parseLong(time);
                 post.time = localDateFormat.format(new Date(t));
                 DataSnapshot commentsSnapshot = dataSnapshot.child("comments");
-                for (DataSnapshot comment : commentsSnapshot.getChildren()) {
-                    Comment newComment = new Comment();
-                    newComment.user = comment.child("user").getValue().toString();
-                    newComment.text = comment.child("text").getValue().toString();
-                    post.comments.add(newComment);
+                if (commentsSnapshot.hasChildren()) {
+                    for (DataSnapshot comment : commentsSnapshot.getChildren()) {
+                        Comment newComment = new Comment();
+                        newComment.user = comment.child("user").getValue().toString();
+                        newComment.text = comment.child("text").getValue().toString();
+                        post.comments.add(newComment);
+                    }
                 }
+
                 postList.add(post);
                 MyRecyclerAdapter.this.notifyItemInserted(postList.size()-1);
             }
@@ -99,11 +102,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                     Long t=Long.parseLong(time);
                     post.time = localDateFormat.format(new Date(t));
                     DataSnapshot commentsSnapshot = dataSnapshot.child("comments");
-                    for (DataSnapshot comment : commentsSnapshot.getChildren()) {
-                        Comment newComment = new Comment();
-                        newComment.user = comment.child("user").getValue().toString();
-                        newComment.text = comment.child("text").getValue().toString();
-                        post.comments.add(newComment);
+                    if (commentsSnapshot.hasChildren()) {
+                        for (DataSnapshot comment : commentsSnapshot.getChildren()) {
+                            Comment newComment = new Comment();
+                            newComment.user = comment.child("user").getValue().toString();
+                            newComment.text = comment.child("text").getValue().toString();
+                            post.comments.add(newComment);
+                        }
                     }
                     postList.add(position,post);
                     MyRecyclerAdapter.this.notifyItemChanged(position);
@@ -136,6 +141,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         public TextView numLikes;
         public TextView addComment;
         public LinearLayout commentLayout;
+        public LinearLayout imageWrapper;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profile_pic_thumb = itemView.findViewById(R.id.profile_pic_thumb);
@@ -146,6 +152,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             numLikes = itemView.findViewById(R.id.num_likes);
             addComment = itemView.findViewById(R.id.card_comment_link);
             commentLayout = itemView.findViewById(R.id.comment_view);
+            imageWrapper = itemView.findViewById(R.id.image_wrapper);
         }
     }
 
@@ -169,6 +176,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             }
         });
         if (!postList.get(position).like_list.contains(user.getUid())) {
+            holder.like.setImageResource(R.drawable.thumbs_up);
             holder.like.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -192,6 +200,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             }
         });
         LayoutInflater inflater = ((BaseActivity)context).getLayoutInflater();
+        holder.commentLayout.removeAllViews();
         for (Comment comment : postList.get(position).comments) {
             View view = inflater.inflate(R.layout.comment_card,holder.commentLayout, false);
             TextView un = view.findViewById(R.id.comment_username);
@@ -200,9 +209,21 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             txt.setText(comment.text);
             holder.commentLayout.addView(view);
         }
+
         new BaseActivity.WorkerDownloadImage(context,holder.profile_pic_thumb).execute(postList.get(position).pp_link);
-        new BaseActivity.WorkerDownloadImage(context,holder.post_image).execute(postList.get(position).link);
+        if (postList.get(position).link.length()>0) {
+            ViewGroup.LayoutParams layoutParams = holder.imageWrapper.getLayoutParams();
+            layoutParams.height = (int) context.getResources().getDimension(R.dimen.dp_400);
+            holder.imageWrapper.setLayoutParams(layoutParams);
+            new BaseActivity.WorkerDownloadImage(context, holder.post_image).execute(postList.get(position).link);
+        } else {
+            ViewGroup.LayoutParams layoutParams = holder.imageWrapper.getLayoutParams();
+            layoutParams.height = 0;
+            holder.imageWrapper.setLayoutParams(layoutParams);
+        }
     }
+
+
 
     @Override
     public int getItemCount() {
